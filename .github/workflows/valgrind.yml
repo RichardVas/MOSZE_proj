@@ -12,6 +12,6 @@ jobs:
         - name: Set permission
           run: chmod a+x ./valgrind.sh
         - name: build
-          run: g++ -Wall -g -o a.out *.cpp
+          run: make build
         - name: Checking memory leak
-          run: ./valgrind.sh
+          run: make valgrind
