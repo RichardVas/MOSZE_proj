@@ -1,6 +1,6 @@
 SHELL=/bin/bash
 
-OBJS = JSON.o Hero.o Monster.o main.o
+OBJS = Jsonparser.o Fighter.o Source.o
 OUT = a.out
 CFLAGS = -Wall -std=c++17
 CC = g++
@@ -12,22 +12,19 @@ build: $(OBJS)
 
 run: ./$(OUT)
 	./$(OUT) $(UNIT1) $(UNIT2)
-	
-Monster.o: Monster.cpp Monster.h JSON.h 
-	$(CC) $(CFLAGS) -c Monster.cpp
-	
-Hero.o: Hero.cpp Hero.h JSON.h 
-	$(CC) $(CFLAGS) -c Hero.cpp
 
-JSON.o: JSON.cpp JSON.h
-	$(CC) $(CFLAGS) -c JSON.cpp
+Fighter.o: Fighter.cpp Fighter.h Jsonparser.h 
+	$(CC) $(CFLAGS) -c Fighter.cpp
 
-main.o: main.cpp Monster.h Hero.h JSON.h
-	$(CC) $(CFLAGS) -c main.cpp
+Jsonparser.o: Jsonparser.cpp Jsonparser.h
+	$(CC) $(CFLAGS) -c Jsonparser.cpp
+
+Source.o: Source.cpp Fighter.h Jsonparser.h
+	$(CC) $(CFLAGS) -c Source.cpp
 
 valgrind:
 	IFS=$'\n'
-	echo "$(valgrind --leak-check=yes --log-file=memory_leak.txt ./a.out Dark_Wanderer.json Fallen.json)"
+	echo "$(valgrind --leak-check=yes --log-file=memory_leak.txt ./a.out Maple.json Sally.json)"
 	result="$(cat ./memory_leak.txt)"
 	echo $result
 	errors="$(echo $result | sed 's/^.*ERROR SUMMARY: \([0-9]*\) errors.*$/\1/')"
