@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: sudo apt-get install doxygen
       - run: sudo apt-get install graphviz
-      - run: doxygen doxconfig
+      - run: make documentation
       - name: Push git subdirectory as branch
 
         uses: s0/git-publish-subdir-action@v2.4.0
