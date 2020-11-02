@@ -42,9 +42,7 @@ valgrind:
 
 cppcheck:
 	IFS=$'\n'
-
-
-echo "$(cppcheck *.cpp --enable=warning --output-file=cppcheck_errors.txt)"
+	echo "$(cppcheck *.cpp --enable=warning --output-file=cppcheck_errors.txt)"
 	if  [ ! -s .cppcheck_errors.txt ]
 	then
 			echo "No performance or style error."
