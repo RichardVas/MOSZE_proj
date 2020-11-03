@@ -54,12 +54,25 @@ TEST(JsonparserTest, Test_getmap_bad)
 TEST(JsonparserTest, unit_test)
 {
 	
-
 	std::map<std::string, std::string> maple = Jsonparser::parseJson("units/Maple.json");
 	std::map<std::string, std::string> sally = Jsonparser::parseJson("units/Sally.json");
 	ASSERT_FALSE(maple == sally);
 }
-
+TEST(JsonparserTest, unit_test1)
+{
+	std::string str0 = "{\n"
+"     \"name\" : \"Maple\",\n"
+"     \"hp\" : 150,   \n"
+"     \"dmg\" :  10  , \n"
+"     \"attackcooldown\" : 3.0,\n"
+"}";
+	
+	std::map<std::string, std::string> maple = Jsonparser::parseJson("units/Maple.json");
+	
+	std::map<std::string, std::string> test = Jsonparser::getmap(str);
+	
+	ASSERT_TRUE(maple == test);
+}
 
 int main(int argc, char** argv)
 {
