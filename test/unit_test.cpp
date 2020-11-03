@@ -54,11 +54,9 @@ TEST(JsonparserTest, Test_getmap_bad)
 TEST(JsonparserTest, unit_test)
 {
 	
-	std::string inputFilename1 = "units/Maple.json";
-	std::string inputFilename2 = "units/Sally.json";
 
-	std::map<std::string, std::string> maple = Jsonparser::parseJson(inputFile);
-	std::map<std::string, std::string> sally = Jsonparser::parseJson(inputFile2);
+	std::map<std::string, std::string> maple = Jsonparser::parseJson("units/Maple.json");
+	std::map<std::string, std::string> sally = Jsonparser::parseJson("units/Sally.json");
 	ASSERT_FALSE(maple == sally);
 }
 
