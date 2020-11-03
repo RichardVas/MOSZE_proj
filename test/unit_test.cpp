@@ -51,13 +51,15 @@ TEST(JsonparserTest, Test_getmap_bad)
 	ASSERT_THROW(Jsonparser::getmap(str), std::runtime_error);
 }
 
-TEST(JsonparserTest, whitespace)
+TEST(JsonparserTest, unit_test)
 {
 	
-	std::string str1 = "{\n       \n} ";
+	std::string inputFilename1 = "units/Maple.json";
+	std::string inputFilename2 = "units/Sally.json";
 
-
-	ASSERT_THROW(Jsonparser::getmap(str1), std::runtime_error);
+	std::map<std::string, std::string> maple = Jsonparser::parseJson(inputFile);
+	std::map<std::string, std::string> sally = Jsonparser::parseJson(inputFile2);
+	ASSERT_FALSE(maple == sally);
 }
 
 
