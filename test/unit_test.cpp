@@ -55,7 +55,7 @@ TEST(JsonparserTest, Unit_test)
 {
 	
 	std::map<std::string, std::string>map2 = Jsonparser::parseJson("units/Maple.json");
-
+	bool j=false;
 	std::string str1 = "{\n"
 		"     \"name \" :   \"Maple\",\n"
 		"     \"hp\" : 150,\n"
@@ -68,7 +68,7 @@ TEST(JsonparserTest, Unit_test)
 	Fighter u2(map2["name"], std::stoi(map2["hp"]), std::stof(map2["dmg"]));
 	
 	if(u1==u2)
-		bool j=true;
+		j=true;
 
 	ASSERT_EQ(j,true);
 }
