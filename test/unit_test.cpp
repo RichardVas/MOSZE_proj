@@ -65,7 +65,7 @@ TEST(JsonparserTest, Unit_test)
 	std::map<std::string, std::string>map1 = Jsonparser::getmap(str1);
 
 	Fighter u1(map1["name"], std::stoi(map1["hp"]), std::stof(map1["dmg"]));
-	Fighter u2(map2["name"], std::stoi(map2["hp"]), std::stof(map2["dmg"]));
+	Fighter u2(map1["name"], std::stoi(map1["hp"]), std::stof(map1["dmg"]));
 	
 	if(u1==u2)
 		j=true;
