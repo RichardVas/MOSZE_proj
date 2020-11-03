@@ -57,11 +57,11 @@ TEST(JsonparserTest, Unit_test)
 	std::map<std::string, std::string>map1 = Jsonparser::parseJson("units/Maple.json");
 	
 	std::string str1 = "{\n"
-		"     \"name \" :   \"Maple\",\n"
-		"     \"hp\" : 150,\n"
-		"     \"dmg\" : 10,\n"
-		"     \"attackcooldown\"  : 3.0,\n"
-		"}";
+"     \"name\" : \"Maple\",\n"
+"     \"hp\" : 150,   \n"
+"     \"dmg\" :  10  , \n"
+"     \"attackcooldown\" : 3.0,\n"
+"}";
 	std::map<std::string, std::string>map2 = Jsonparser::getmap(str1);
 
 	Fighter u1(map1["name"], std::stoi(map1["hp"]), std::stof(map1["dmg"]));
