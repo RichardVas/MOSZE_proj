@@ -72,7 +72,7 @@ TEST(JsonparserTest, unit_test1)
 	
 	ASSERT_TRUE(maple == test);
 }
-TEST(JsonparserTest, unit_test_whitespace)
+TEST(JsonparserTest, getmap_whitespace)
 {
 	std::string str1 = "{\n"
 "     \"name\" : \"Maple\",\n"
@@ -90,10 +90,8 @@ TEST(JsonparserTest, unit_test_whitespace)
 	
 	std::map<std::string, std::string> map2 = Jsonparser::getmap(str2);
 	
-	Fighter u1(map1["name"], std::stoi(map1["hp"]), std::stof(map1["dmg"]));
-	Fighter u2(map2["name"], std::stoi(map2["hp"]), std::stof(map2["dmg"]));
 	
-	ASSERT_TRUE(u1 == u2);
+	ASSERT_EQ(map1["name"],map2["name"]);
 }
 
 int main(int argc, char** argv)
