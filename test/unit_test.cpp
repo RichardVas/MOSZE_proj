@@ -64,7 +64,6 @@ TEST(JsonparserTest, unit_test1)
 "     \"name\" : \"Maple\",\n"
 "     \"hp\" : 150,   \n"
 "     \"dmg\" :  10  , \n"
-"     \"attackcooldown\" : 3.0,\n"
 "}";
 	
 	std::map<std::string, std::string> maple = Jsonparser::parseJson("units/Maple.json");
