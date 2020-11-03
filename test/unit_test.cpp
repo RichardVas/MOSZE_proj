@@ -54,10 +54,8 @@ TEST(JsonparserTest, Test_getmap_bad)
 TEST(JsonparserTest, whitespace)
 {
 	
-	std::string str1 = "\n\t\\\:,\n "" ";
+	std::string str1 = "{\n       \n} ";
 
-	
-	
 
 	ASSERT_THROW(Jsonparser::getmap(str1), std::runtime_error);
 }
