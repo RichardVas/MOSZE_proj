@@ -64,7 +64,7 @@ std::map <std::string, std::string> Jsonparser::getmap(std::string str)
 						value.erase(std::remove_if(value.begin(), value.end(), isspace), value.end());
 						if (value.back() == ',')
 							value.pop_back();
-						std::cout << "#" << value << std::endl;
+						
 						if (target_type == Integer) {
 							m[key] = value;
 						}
