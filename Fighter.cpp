@@ -16,4 +16,7 @@ std::ostream& operator<<(std::ostream& os, const Fighter& fi)
 	return os;
 }
 
-
+bool operator==(const Fighter &f1, const Fighter &f2)
+{
+	return (f1.HP == f2.HP && f1.DMG == f2.DMG && f1.name == f2.name);
+}
