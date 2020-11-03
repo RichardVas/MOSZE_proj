@@ -60,7 +60,7 @@ TEST(JsonparserTest, unit_test)
 }
 TEST(JsonparserTest, unit_test1)
 {
-	std::string str0 = "{\n"
+	std::string str = "{\n"
 "     \"name\" : \"Maple\",\n"
 "     \"hp\" : 150,   \n"
 "     \"dmg\" :  10  , \n"
