@@ -51,6 +51,18 @@ TEST(JsonparserTest, Test_getmap_bad)
 	ASSERT_THROW(Jsonparser::getmap(str), std::runtime_error);
 }
 
+TEST(JsonparserTest, Unit_test)
+{
+	std::map<std::string, std::string>map1 = Jsonparser::parseJson("units/Maple.json");
+	std::map<std::string, std::string>map2 = Jsonparser::parseJson("units/Maple.json");
+
+
+
+	Fighter u1(map1["name"], std::stoi(map1["hp"]), std::stof(map1["dmg"]));
+	Fighter u2(map2["name"], std::stoi(map2["hp"]), std::stof(map2["dmg"]));
+
+	ASSERT_EQ(u1,u2);
+}
 int main(int argc, char** argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
