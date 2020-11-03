@@ -2,5 +2,4 @@
   "name" : "Maple",
   "hp" : 150,
   "dmg" : 10,
-  "attackcooldown" : 3.0,
 }
