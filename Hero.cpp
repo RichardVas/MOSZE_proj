@@ -53,7 +53,7 @@ void Hero::levelUP()
 	attackCooldown *= cooldownMultiplierPerLevel;
 	
 }
-/*ezt átalakítani fighttildeath függvénnyé*/
+/*ezt átalakítani fighttildeath függvénnyé
 void Hero::duel(Monster &enemy)
 {
 	bool can_attack = true;
@@ -84,3 +84,4 @@ void Hero::duel(Monster &enemy)
 	}
 
 }
+*/
