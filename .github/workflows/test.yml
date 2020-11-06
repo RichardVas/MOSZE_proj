@@ -1,17 +1,47 @@
-
-name: Test workflow
+name: test01_workflow
 
 on: push
 
 jobs:
-  build:
+  build_and_output_tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: g++ -std=c++17 *.cpp
-      - name: Permission
-        run: chmod u+r+x test.sh
-      - name: Run test
-        run: ./test.sh
+        run: make build
+      - name: Make test_01.sh executable
+        run: chmod +x ./test_01.sh     
+      - name: Run test_01.sh
+        run: ./test_01.sh
+      - name: Diff
+        run: make diff_test
+        
 
+  code_analysis:     
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: make build
+      - name: Make *.sh files executable
+        run: chmod +x ./*.sh     
+
+      - name: Install valgrind
+        run: sudo apt-get install valgrind
+      - name: Check Leaks
+        run: make check_leaks
+
+      - name: Install cppcheck
+        run: sudo apt-get install cppcheck
+      - name: Run test_check_warnings.sh
+        run: ./test_check_warnings.sh
+
+      - name: Run test_style_and_performance.sh
+        run: ./test_style_and_performance.sh
+      - name: Artifact style_and_performance.txt
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact(style_and_performance.txt)
+          path: ./style_and_performance.txt
+
+        
