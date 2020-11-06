@@ -1,41 +1,51 @@
+SHELL:= /bin/bash
 
-OBJS = main.o Monster.o Hero.o JSON.o
-CFLAGS = -std=c++17 -Wall -Werror -g
-CC = g++-10
-OUT = a.out
-VLGRNDFLAGS:= --leak-check=full --error-exitcode=1 --log-file=memory_leaks.txt
-JSONFILES:=  units/scenario1.json
+OBJS := main.o character.o JSON.o Hero.o Monster.o
+CFLAGS := -Wall -std=c++17
+CC := clang++
 
 build: $(OBJS)
-	$(CC) $(CFLAGS) -o $(OUT) $(OBJS)
+	$(CC) $(CFLAGS) -o main $(OBJS)
 
-main.o: main.cpp Hero.h Monster.h JSON.h
+main.o: main.cpp character.h JSON.h Hero.h Monster.h
 	$(CC) $(CFLAGS) -c main.cpp
 
-Monster.o: Monster.cpp Monster.h JSON.h
-	$(CC) $(CFLAGS) -c Monster.cpp
-
-Hero.o: Hero.cpp Hero.h JSON.h Monster.h
-	$(CC) $(CFLAGS) -c Hero.cpp
+character.o: character.cpp character.h JSON.h
+	$(CC) $(CFLAGS) -c character.cpp
 
 JSON.o: JSON.cpp JSON.h
 	$(CC) $(CFLAGS) -c JSON.cpp
 
+Hero.o: Hero.cpp Hero.h character.h JSON.h Monster.h
+	$(CC) $(CFLAGS) -c Hero.cpp
 
-diff_test:
-	diff output1.txt real_output1.txt
-	diff output2.txt real_output2.txt
-
-check_leaks:
-	valgrind $(VLGRNDFLAGS) ./$(OUT) $(JSONFILES)
-
-gtest:
-	cd unit_tests && cmake CMakeLists.txt
-	cd unit_tests && make
-	cd unit_tests && ./runTests
+Monster.o: Monster.cpp Monster.h character.h JSON.h Hero.h
+	$(CC) $(CFLAGS) -c Monster.cpp
 
 documentation:
-	doxygen doxconf
+	doxygen doxconfig
+
+test:
+	bash -c "chmod +x test.sh"
+	bash -c "./test.sh main output.txt"
+
+io-diff-tests:
+	bash -c "diff output.txt good_output.txt"
+
+static-code-analysis:
+	bash -c "chmod +x run_cppcheck.sh"
+	bash -c "./run_cppcheck.sh"
+
+memory-leak-check:
+	bash -c "chmod +x run_valgrind_check.sh"
+	bash -c "./run_valgrind_check.sh"
+
+parser-tests:
+	cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make
+	sudo ln -st /usr/lib/ /usr/src/gtest/libgtest.a && sudo ln -st /usr/lib/ /usr/src/gtest/libgtest_main.a
+	cd unit_test && cmake CMakeLists.txt
+	cd unit_test && make
+	cd unit_test && ./test_parser
 
 clean:
-	rm -rf $(OBJS) a.out ./DOCS
+	rm -rf *.o main ./html ./latex test_parser CMakeCache.txt cmake_install.cmake libtestCode.a
