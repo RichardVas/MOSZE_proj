@@ -7,17 +7,17 @@ CC := clang++
 build: $(OBJS)
 	$(CC) $(CFLAGS) -o main $(OBJS)
 
-main.o: main.cpp character.h JSON.h Hero.h Monster.h
+main.o: main.cpp JSON.h Hero.h Monster.h
 	$(CC) $(CFLAGS) -c main.cpp
 
 
 JSON.o: JSON.cpp JSON.h
 	$(CC) $(CFLAGS) -c JSON.cpp
 
-Hero.o: Hero.cpp Hero.h character.h JSON.h Monster.h
+Hero.o: Hero.cpp Hero.h JSON.h Monster.h
 	$(CC) $(CFLAGS) -c Hero.cpp
 
-Monster.o: Monster.cpp Monster.h character.h JSON.h Hero.h
+Monster.o: Monster.cpp Monster.h JSON.h Hero.h
 	$(CC) $(CFLAGS) -c Monster.cpp
 
 documentation:
