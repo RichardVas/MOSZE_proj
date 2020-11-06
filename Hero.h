@@ -7,15 +7,12 @@ class Hero : public Monster {
 
 	double baseHealthPoints;            
 	double experiencePerLevel;          
-	double exp ;              
+	double experienceState ;              
 	double healthPointBonusPerLevel;     
 	double damageBonusPerLevel;          
 	double cooldownMultiplierPerLevel;   
 
 	double level;                        
-
-
-	void levelUP();
 
 public:
 
@@ -25,7 +22,7 @@ public:
 	Hero(const std::string& name, const double& healthPoints, const double& damage, const double& attackCooldown, const double& experiencePerLevel,
 		const double& healthPointBonusPerLevel, const double& damageBonusPerLevel, const double& cooldownMultiplierPerLevel) :
 		Monster(name, healthPoints, damage, attackCooldown), baseHealthPoints(healthPoints), experiencePerLevel(experiencePerLevel),
-		exp(0), healthPointBonusPerLevel(healthPointBonusPerLevel), damageBonusPerLevel(damageBonusPerLevel),
+		experienceState(0), healthPointBonusPerLevel(healthPointBonusPerLevel), damageBonusPerLevel(damageBonusPerLevel),
 		cooldownMultiplierPerLevel(cooldownMultiplierPerLevel), level(1) {}
 
 
@@ -43,6 +40,5 @@ public:
 
 	
 	double getLevel() const { return level; }
-
 };
 
