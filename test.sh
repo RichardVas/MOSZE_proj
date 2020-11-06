@@ -2,14 +2,11 @@
 
 rm -f output.txt
 
-./a.out units/Maple.json units/Sally.json >> output.txt
-./a.out units/Maple.json units/Kakarot.json >> output.txt
-./a.out units/Sally.json units/Maple.json >> output.txt
-./a.out units/Sally.json units/Kakarot.json >> output.txt
-./a.out units/Kakarot.json units/Maple.json >> output.txt
-./a.out units/Kakarot.json units/Sally.json >> output.txt
+./a.out units/scenario1.json >>curr_output1.txt
+.a .out units/scenario2.json >>curr_output2.txt
 
-diff --strip-trailing-cr output.txt exp_output.txt
+diff --strip-trailing-cr curr_output1.txt output1.txt
+diff --strip-trailing-cr curr_output2.txt output2.txt
 
 if [ $? -eq 0 ]
 then
