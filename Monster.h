@@ -3,16 +3,7 @@
 
 #include <string>
 
-/**
- * \class Monster
- * \brief Main class for monsters.
- *
- * Defines the parameters and actions of the monsters.
- *
- * \author LengyHELL
- * \version 1.1
- * \date 2020/11/01 17:02
- */
+
 class Monster {
 protected:
   std::string name = "";      ///< Name of the monster.
