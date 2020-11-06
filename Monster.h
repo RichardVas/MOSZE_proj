@@ -50,6 +50,6 @@ public:
 	double getDamage() const { return damage; }
 
 	
-	double getAttackCooldown() const { return attackCooldown; }
+	double getAttackCoolDown() const { return attackCooldown; }
 };
 
