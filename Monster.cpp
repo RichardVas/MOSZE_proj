@@ -6,16 +6,16 @@ void Monster::take_dmg(Monster& monster, const double& damage) {
 	if (monster.healthPoints < 0) { monster.healthPoints = 0; }
 }
 
-//void Monster::elapseTime(Monster& monster, const double& t) {
-//	monster.cooldownState -= t;
-//}
-//
-//void Monster::resetCooldown() {
-//	cooldownState += attackCooldown;
-//	if (cooldownState > attackCooldown) {
-//		cooldownState = attackCooldown;
-//	}
-//}
+void Monster::elapseTime(Monster& monster, const double& t) {
+	monster.cooldownState -= t;
+}
+
+void Monster::resetCooldown() {
+	cooldownState += attackCooldown;
+	if (cooldownState > attackCooldown) {
+		cooldownState = attackCooldown;
+	}
+}
 
 void Monster::attack(Monster& enemy) {
 	if (isAlive() && canHit()) {
