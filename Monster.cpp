@@ -1,7 +1,7 @@
 #include "Monster.h"
 #include "JSON.h"
 
-void Monster::take_dmg(Monster& monster, const double& damage) {
+void Monster::sufferDamage(Monster& monster, const double& damage) {
 	monster.healthPoints -= damage;
 	if (monster.healthPoints < 0) { monster.healthPoints = 0; }
 }
@@ -20,7 +20,7 @@ void Monster::resetCooldown() {
 void Monster::attack(Monster& enemy) {
 	if (isAlive() && canHit()) {
 		resetCooldown();
-		take_dmg(enemy, damage);
+		sufferDamage(enemy, damage);
 	}
 }
 
@@ -32,11 +32,4 @@ Monster Monster::parse(const std::string& filename) {
 		file.get<int>("damage"),
 		file.get<double>("attack_cooldown")
 	);
-}
-
-void Monster::deal_dmg(Monster& enemy,const double& damage)
-{
-	enemy.take_dmg(*this, damage);
-
-
 }
