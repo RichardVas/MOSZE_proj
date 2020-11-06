@@ -12,8 +12,8 @@ protected:
 	double attackCooldown;   
 	double cooldownState;   
 
-	void take_dmg(Monster& enemy, const double& damage);
-	void deal_dmg(Monster& enemy, const double& damage);
+	void sufferDamage(Monster& monster, const double& damage);
+
 
 	void elapseTime(Monster& monster, const double& t);
 
@@ -51,7 +51,5 @@ public:
 
 	
 	double getAttackCooldown() const { return attackCooldown; }
-
-	
 };
 
