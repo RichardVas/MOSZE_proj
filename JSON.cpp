@@ -26,10 +26,10 @@ void JSON::getmap(const std::string& key, const std::string& value) {
 	if (determine_type(value) == JSON::String) {
 		stringMap[key] = (std::string)value.substr(1, value.size() - 2);
 	}
-	else if (determine_type(value) == JSON::Double) {
-		doubleMap[key] = (double)std::stod(value);
+	else if (determine_type(value)== JSON::Double) {
+		doubleMap[key] = (double)std::stof(value);
 	}
-	else if (determine_type(value) == JSON::Integer) {
+	else if (determine_type(value)==JSON::Integer) {
 		intMap[key] = (int)std::stoi(value);
 	}
 	else {
@@ -41,48 +41,33 @@ unsigned JSON::count(const std::string& key) const {
 	return stringMap.count(key) + doubleMap.count(key) + intMap.count(key);
 }
 
-
 void JSON::parseRaw(std::string data) {
 
+	std::string ws = " \t\n\v\f\r";
+	data.erase(0, data.find_first_not_of(ws));
+	data.erase(data.find_last_not_of(ws) + 1);
 
-	std::string ws = "\t\n\v\f\r";
-	//std::string ws = "\t\n";
+	if (data[0] != '{') { throw ParseException("Missing \"{\" bracket!"); }
+	if (data[data.size() - 1] != '}') { throw ParseException("Missing \"}\" bracket!"); }
 
-	//data.erase(0, data.find_first_not_of(ws));
-	//data.erase(data.find_last_not_of(ws) + 1);
+	data.erase(0, 1);
 
-	std::string content = "";
-	for (auto &i : data)
-		if (ws.find(i) == std::string::npos)
-			content += i;
-
-	//content.erase(1, content.find('"')-1);
-
-	
-
-	if (content[0] != '{') { throw ParseException("Missing \"{\" bracket!"); }
-	if (content[content.size() - 1] != '}') { throw ParseException("Missing \"}\" bracket!"); }
-
-	//	data.erase(0, 1);
-
-	if (content.size() == 0) { throw ParseException("Empty JSON file!"); }
+	if (data.size() == 0) { throw ParseException("Empty JSON file!"); }
 
 	std::string tag = "";
 	std::string value = "";
 
 	bool isTag = true;
 	bool inQuotes = false;
-	for (unsigned i = 0; i < content.size(); ++i) {
-		if (content[i] == '"') { inQuotes = !inQuotes; }
+	for (unsigned i = 0; i < data.size(); ++i) {
+		if (data[i] == '"') { inQuotes = !inQuotes; }
 		if (inQuotes) {
-			/*if(i>5)*/
-			if (isTag) { tag += content[i]; }
-			else { value += content[i]; }
-		}		
+			if (isTag) { tag += data[i]; }
+			else { value += data[i]; }
+		}
 		else {
-
-			if (content[i] == ':') { isTag = false; }
-			else if (content[i] == ',' || content[i] == '}') {
+			if (data[i] == ':') { isTag = false; }
+			else if (data[i] == ',' || data[i] == '}') {
 				tag = tag.substr(1, tag.size() - 2);
 
 				if (tag.size() <= 0) { throw ParseException("Invalid tag!"); }
@@ -93,25 +78,20 @@ void JSON::parseRaw(std::string data) {
 					throw ParseException("Multiple definition of \"" + tag + "\"!");
 				}
 
-				if (tag[0] == '"')
-					tag.erase(0, 1);
-
-
 				getmap(tag, value);
 
 				isTag = true;
 				tag = "";
 				value = "";
 			}
-			else if (!isspace(content[i])) {
-				if (isTag) { tag += content[i]; }
-				else { value += content[i]; }
+			else if (!isspace(data[i])) {
+				if (isTag) { tag += data[i]; }
+				else { value += data[i]; }
 			}
 		}
 	}
 	if (!isTag || inQuotes) { throw ParseException("Invalid end of file!"); }
 }
-
 
 JSON JSON::parseFromFile(const std::string& filename) {
 	JSON ret;
@@ -155,15 +135,30 @@ JSON JSON::parseFromString(const std::string& text) {
 
 template<>
 std::string JSON::get<std::string>(const std::string& tag) const {
+	try {
 		return stringMap.at(tag);
+	}
+	catch (const std::out_of_range& e) {
+		throw ParseException("Tag \"" + tag + "\" not found!");
+	}
 }
 
 template<>
 double JSON::get<double>(const std::string& tag) const {
+	try {
 		return doubleMap.at(tag);
+	}
+	catch (const std::out_of_range& e) {
+		throw ParseException("Tag \"" + tag + "\" not found!");
+	}
 }
 
 template<>
 int JSON::get<int>(const std::string& tag) const {
+	try {
 		return intMap.at(tag);
+	}
+	catch (const std::out_of_range& e) {
+		throw ParseException("Tag \"" + tag + "\" not found!");
+	}
 }
