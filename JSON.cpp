@@ -58,7 +58,7 @@ void JSON::parseRaw(std::string data) {
 
 	//content.erase(1, content.find('"')-1);
 
-	std::cout << content << "######\n";
+	
 
 	if (content[0] != '{') { throw ParseException("Missing \"{\" bracket!"); }
 	if (content[content.size() - 1] != '}') { throw ParseException("Missing \"}\" bracket!"); }
@@ -96,9 +96,6 @@ void JSON::parseRaw(std::string data) {
 				if (tag[0] == '"')
 					tag.erase(0, 1);
 
-				/*std::cout << "#\n";*/
-				std::cout << tag << "\t" << value << std::endl;
-				/*std::cout << "#\n";*/
 
 				getmap(tag, value);
 
