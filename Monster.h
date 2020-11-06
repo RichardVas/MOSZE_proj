@@ -42,7 +42,7 @@ public:
 
   /// Default constructor.
   Monster() {}
-
+  ~Monster() {}
   /// Constructor with parameters for the class.
   Monster(const std::string& name, const float& healthPoints, const float& damage, const float& attackCooldown) :
     name(name), healthPoints(healthPoints), damage(damage), attackCooldown(attackCooldown), cooldownState(attackCooldown) {}
