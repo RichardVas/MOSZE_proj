@@ -18,3 +18,4 @@ echo "$(cppcheck *.cpp --enable=warning --output-file=cppcheck_errors.txt)"
 			exit 1
 	fi 
   
+  
