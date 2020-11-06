@@ -33,3 +33,4 @@ Monster Monster::parse(const std::string& filename) {
     file.get<float>("attack_cooldown")
   );
 }
+Monster::~attack(){};
