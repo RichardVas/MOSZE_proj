@@ -10,8 +10,6 @@ build: $(OBJS)
 main.o: main.cpp character.h JSON.h Hero.h Monster.h
 	$(CC) $(CFLAGS) -c main.cpp
 
-character.o: character.cpp character.h JSON.h
-	$(CC) $(CFLAGS) -c character.cpp
 
 JSON.o: JSON.cpp JSON.h
 	$(CC) $(CFLAGS) -c JSON.cpp
