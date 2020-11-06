@@ -12,7 +12,7 @@ jobs:
       - name: Make test_01.sh executable
         run: chmod +x ./test_01.sh     
       - name: Run test_01.sh
-        run: ./test_01.sh
+        run: ./test.sh
       - name: Diff
         run: make diff_test
         
