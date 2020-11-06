@@ -19,14 +19,19 @@ Hero Hero::parse(const std::string& filename) {
 void Hero::attack(Monster& enemy) {
 	if (isAlive() && canHit()) {
 		if (enemy.getHealthPoints() >= damage) {
-			exp += damage;
+			experienceState += damage;
 		}
 		else {
-			exp += enemy.getHealthPoints();
+			experienceState += enemy.getHealthPoints();
 		}
-		take_dmg(enemy, damage);
-		while (exp >= experiencePerLevel) {
-			levelUP();
+		sufferDamage(enemy, damage);
+		while (experienceState >= experiencePerLevel) {
+			level += 1;
+			experienceState -= experiencePerLevel;
+			baseHealthPoints += healthPointBonusPerLevel;
+			healthPoints = baseHealthPoints;
+			damage += damageBonusPerLevel;
+			attackCooldown *= cooldownMultiplierPerLevel;
 		}
 		resetCooldown();
 	}
@@ -40,48 +45,3 @@ void Hero::fightTilDeath(Monster& enemy) {
 		elapseTime(enemy, 0.1);
 	}
 }
-
-
-
-void Hero::levelUP()
-{
-	level += 1;
-	exp -= experiencePerLevel;
-	baseHealthPoints += healthPointBonusPerLevel;
-	healthPoints = baseHealthPoints;
-	damage += damageBonusPerLevel;
-	attackCooldown *= cooldownMultiplierPerLevel;
-	
-}
-/*ezt átalakítani fighttildeath függvénnyé
-void Hero::duel(Monster &enemy)
-{
-	bool can_attack = true;
-
-	double aCD = this->getAttackCooldown();
-	double bCD = enemy.getAttackCooldown();
-
-	double rest_a = 0;
-	double rest_b = 0;
-
-	this->deal_dmg(enemy,this->getDamage());
-	this->take_dmg(enemy,enemy.getDamage());
-
-	while (this->getHealthPoints() != 0 && enemy.getHealthPoints() != 0)
-	{
-		if (aCD + rest_a < bCD + rest_b) {
-			rest_a += aCD;
-			this->deal_dmg(enemy, this->getDamage());
-		}
-		else if (aCD + rest_a > bCD + rest_b) {
-			rest_b += bCD;
-			this->take_dmg(enemy, enemy.getDamage());
-		}
-		else {
-			rest_a += aCD;
-			this->deal_dmg(enemy, this->getDamage());
-		}
-	}
-
-}
-*/
