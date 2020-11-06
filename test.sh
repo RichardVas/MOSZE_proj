@@ -2,7 +2,7 @@
 
 IFS=$'\n'
 
-rm output.txt
+rm -f output.txt
 
-echo `./main scenario1.json` >> $2
-echo `./main scenario2.json` >> $2
+./a.out scenario1.json >> output.txt
+./a.out scenario2.json >> output.txt
