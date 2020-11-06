@@ -43,10 +43,6 @@ public:
 
 	
 	double getLevel() const { return level; }
-/*
-	void duel(Monster &enemy)/**
-			 * Method for 2 characters fighting.
-			 */;
-*/
+
 };
 
